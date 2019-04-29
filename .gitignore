@@ -1,0 +1,4 @@
+venv/
+venv/bin venv/include venv/lib venv/lib64 venv/pip-selfcheck.json venv/pyvenv.cfg
+.idea
+venv/*
