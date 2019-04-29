@@ -5,7 +5,7 @@ import cv2
 from camera import camera
 
 app = Flask(__name__)
-mainFrame = numpy.zeros([244,244,3])
+mainFrame = b''
 
 @app.route('/')
 def index():
@@ -15,16 +15,19 @@ def index():
 def getStream():
     global mainFrame
     while True:
+        #print(mainFrame)
         yield (b'--frame\r\n'
                b'Content-Type: image/jpeg\r\n\r\n'+mainFrame+b'\r\n\r\n')
 
 def getFrame(camera):
     global mainFrame
     while True:
-        mainFrame, img = camera.getFrame()
+        mainFrame = camera.getFrame()
+        #print(mainFrame)
 
 @app.route('/getimg')
 def getimg():
+    #print(mainFrame)
     return Response(getStream(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 if __name__=='__main__':
