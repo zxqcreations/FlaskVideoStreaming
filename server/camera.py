@@ -9,5 +9,8 @@ class camera:
         if not self.camera.isOpened():
             return b'noData'
         ret, img = self.camera.read()
-        ret, jpeg = cv2.imencode('.jpg', img)
-        return jpeg.tobytes()
+        if ret:
+            cv2.imshow('img', img)
+            ret, jpeg = cv2.imencode('.jpg', img)
+            return jpeg.tobytes(), img
+        return b'noData'
