@@ -1,7 +1,7 @@
 from flask import Flask, render_template, Response
 import threading
 import numpy
-import cv2
+import cv2, time
 from camera import camera
 
 app = Flask(__name__)
@@ -18,6 +18,7 @@ def getStream():
         #print(mainFrame)
         yield (b'--frame\r\n'
                b'Content-Type: image/jpeg\r\n\r\n'+mainFrame+b'\r\n\r\n')
+        time.sleep(0.05)
 
 def getFrame(camera):
     global mainFrame
@@ -27,7 +28,7 @@ def getFrame(camera):
 
 @app.route('/getimg')
 def getimg():
-    #print(mainFrame)
+    print(mainFrame)
     return Response(getStream(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 if __name__=='__main__':

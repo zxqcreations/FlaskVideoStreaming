@@ -11,6 +11,6 @@ class camera:
         ret, img = self.camera.read()
         if ret:
             #cv2.imshow('img', img)
-            ret, jpeg = cv2.imencode('.jpg', img)
+            ret1, jpeg = cv2.imencode('.jpg', img)
             return jpeg.tobytes()
         return b'noData'
