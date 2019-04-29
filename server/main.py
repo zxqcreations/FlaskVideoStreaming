@@ -26,8 +26,15 @@ def getFrame(camera):
 def getimg():
     return Response(getStream(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
+def runapp():
+    app.run(host='0.0.0.0', debug=True, port=5000)
+
 if __name__=='__main__':
     cmr = camera(0)
     frameGenerator = threading.Thread(target=getFrame, args=(cmr,))
-    frameGenerator.run()
+    frameGenerator.start()
     app.run(host='0.0.0.0', debug=True, port=5000)
+    #app_run = threading.Thread(target=runapp, args=())
+    #app_run.start()
+
+
